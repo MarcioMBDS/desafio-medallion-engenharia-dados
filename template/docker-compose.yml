@@ -1,0 +1,27 @@
+# Esqueleto: ajuste serviços, portas e comandos à sua solução.
+services:
+  pipeline:
+    build: .
+    container_name: desafio-pipeline
+    environment:
+      - LAKE_DIR=/app/lake
+      - ENTRADA=${ENTRADA:-/app/data/acidentes_2024_bruto.csv}
+    volumes:
+      - ./lake:/app/lake          # camadas bronze/silver/quarentena/gold ficam visíveis no host
+      - ./data:/app/data:ro       # troque o arquivo de entrada aqui
+
+  painel:
+    build: .
+    container_name: desafio-painel
+    depends_on:
+      pipeline:
+        condition: service_completed_successfully
+    # Exemplo para Streamlit (troque pelo comando do seu painel):
+    # command: streamlit run src/painel.py --server.port=8501 --server.address=0.0.0.0
+    command: ["python", "-c", "print('TODO: subir o painel')"]
+    ports:
+      - "8501:8501"
+    environment:
+      - LAKE_DIR=/app/lake
+    volumes:
+      - ./lake:/app/lake:ro

@@ -1,0 +1,23 @@
+coluna,tipo_prata,obrigatorio,dominio_ou_formato,regra_de_qualidade,exemplo_valido
+id,inteiro,sim,> 0,Chave primária. Única na camada prata (sem duplicatas).,28373
+data_inversa,data,sim,AAAA-MM-DD; de 2024-01-01 a 2024-12-31,Deve ser uma data real do calendário e estar dentro de 2024.,2024-10-01
+dia_semana,texto (domínio),sim,segunda-feira | terça-feira | quarta-feira | quinta-feira | sexta-feira | sábado | domingo,"Minúsculas, com acento. Deve coincidir com o dia da semana de data_inversa.",terça-feira
+horario,hora,sim,HH:MM:SS; 00:00:00 a 23:59:59,"Hora válida do dia, sempre com segundos.",21:37:00
+uf,texto (domínio),sim,Sigla de 2 letras maiúsculas listada em referencia/ufs.csv,Deve existir na tabela de referência.,GO
+br,inteiro,sim,1 a 499,"Número da rodovia federal, apenas o número (sem prefixo 'BR-').",50
+km,"decimal(4,1)",sim,"0,0 a 999,9",Quilômetro da rodovia; não pode ser negativo. Na prata use ponto como separador decimal.,53.6
+municipio,texto (domínio),sim,Nome conforme referencia/municipios.csv,Grafia oficial (com acentos e capitalização da tabela de referência) e deve pertencer à uf informada.,Anápolis
+causa_acidente,texto (domínio),sim,Falta de atenção à condução | Velocidade incompatível | Ausência de reação do condutor | Desobediência às normas de trânsito | Ingestão de álcool | Defeito mecânico em veículo | Animais na pista | Condutor dormindo | Falta de atenção do pedestre | Defeito na via,"Deve pertencer ao domínio, com a grafia exata.",Velocidade incompatível
+tipo_acidente,texto (domínio),sim,Colisão traseira | Colisão lateral | Colisão frontal | Saída de leito carroçável | Capotamento | Tombamento | Atropelamento de pedestre | Colisão com objeto fixo | Atropelamento de animal,"Deve pertencer ao domínio, com a grafia exata.",Capotamento
+classificacao_acidente,texto (domínio),sim,Sem Vítimas | Com Vítimas Feridas | Com Vítimas Fatais,Regra de negócio: 'Com Vítimas Fatais' se mortos > 0; 'Com Vítimas Feridas' se mortos = 0 e (feridos_leves + feridos_graves) > 0; senão 'Sem Vítimas'.,Com Vítimas Feridas
+fase_dia,texto (domínio),sim,Amanhecer | Pleno dia | Anoitecer | Plena Noite,Regra de negócio por horario: Amanhecer 05:00:00-06:59:59; Pleno dia 07:00:00-17:59:59; Anoitecer 18:00:00-19:29:59; Plena Noite 19:30:00-04:59:59.,Plena Noite
+condicao_metereologica,texto (domínio),sim,Céu Claro | Nublado | Chuva | Garoa/Chuvisco | Neblina/Nevoeiro | Vento | Sol,Domínio fechado. A grafia 'metereologica' (com 'e') é mantida do layout original; não renomeie.,Chuva
+tipo_pista,texto (domínio),sim,Simples | Dupla | Múltipla,Domínio fechado.,Dupla
+mortos,inteiro,sim,0 a 50,Não pode ser negativo nem texto.,0
+feridos_leves,inteiro,sim,0 a 50,Não pode ser negativo nem texto.,1
+feridos_graves,inteiro,sim,0 a 50,Não pode ser negativo nem texto.,0
+ilesos,inteiro,sim,0 a 50,Não pode ser negativo nem texto.,3
+pessoas,inteiro,sim,1 a 200,Regra de negócio: pessoas = mortos + feridos_leves + feridos_graves + ilesos.,4
+veiculos,inteiro,sim,1 a 20,Todo acidente envolve ao menos 1 veículo.,3
+latitude,"decimal(9,6)",sim,"-33,75 a 5,27","Dentro do território brasileiro, diferente de 0 (sentinela inválida) e a no máximo 0,5 grau da latitude_ref do município. Na prata use ponto decimal.",-16.394244
+longitude,"decimal(9,6)",sim,"-73,99 a -34,79","Dentro do território brasileiro, diferente de 0 e a no máximo 0,5 grau da longitude_ref do município. Na prata use ponto decimal.",-48.937873
