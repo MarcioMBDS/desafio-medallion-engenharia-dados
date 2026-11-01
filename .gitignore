@@ -1,0 +1,24 @@
+﻿# Dados processados
+lake/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Ambientes virtuais
+.venv/
+venv/
+
+# Configuracoes locais e segredos
+.env
+.env.*
+!.env.example
+
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Dados gerados pelo pipeline
+lake/
